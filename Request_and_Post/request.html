@@ -1,0 +1,20 @@
+<h1>Check if the Request is GET or Method</h1>
+<p>
+    In this example we have a form, and a normal hyper link. When we clicked on <br>
+    the submit button of the form the a request will be made for the myrquest.html page<br>
+    the same thing will happent when we clicked on the hyperlink a request will <br>
+    be made for the page myrequest.html
+</p>
+<br>
+<br>
+<form action="/photo/myrequest/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Enter Name"><br/>
+    <input type="text" name="col" placeholder="Enter Collage"><br/>
+    <input type="submit" name="Add">
+</form>
+<hr>
+<a href="/photo/myrequest">Open Page</a>
+<p>
+   <h1>{{ms}}</h1>
+</p>
