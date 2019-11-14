@@ -17,6 +17,5 @@ def index(request):
                              ]}
 
     weather_data = forecast['sal_data']
-    for weather in weather_data:
-        data = weather
+
     return render(request, "weather/forecast.html", {'w_data': weather_data})
