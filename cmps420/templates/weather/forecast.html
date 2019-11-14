@@ -1,0 +1,13 @@
+<table>
+<tr>
+<td>#</td><td>Humidity</td><td>Temperature</td><td>wind</td>
+</tr>
+{% for w in w_data%}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{w.humidity}}</td>
+        <td>{{w.temperature}}</td>
+        <td>{{w.wind}}</td>
+    </tr>
+{% endfor %}
+</table>
