@@ -11,6 +11,11 @@ class student(models.Model):
     def __str__(self):
         return self.stname
 
+#Notice: after creating the model you must make the migrations, and you must add the name of the model which "student"
+# in the console write the following codes:
+#1- django manage.py makemigrations student
+#2- django manage.py migrate student
+
 
 #**************************************************************************
 #In the views.py
