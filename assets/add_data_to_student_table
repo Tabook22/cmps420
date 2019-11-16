@@ -1,0 +1,94 @@
+#**************************************************************************
+#In the models.py
+#**************************************************************************
+from django.db import models
+
+# Create your models here.
+class student(models.Model):
+    stname=models.CharField(verbose_name="Studnet Name", max_length=100,null=True, blank=True)
+    stcoll=models.CharField(verbose_name="College", max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.stname
+
+
+#**************************************************************************
+#In the views.py
+#**************************************************************************
+
+from django.shortcuts import render
+from .models import student
+#Add New student
+def add_new_st(request):
+    #Here we are going to declare a variable to hold the message
+    msg=""
+    #check to see if the request method is post or not
+    if request.method=="POST":
+        # Getting the posted data (the student name and student collage)
+        stn=request.POST.get("stname")
+        stc=request.POST.get("stcoll")
+        # adding data to the model
+        std=student(stname=stn, stcoll=stc)
+        std.save()
+        msg="Student data was saved"
+    else:
+        msg="Student Data Not Saved!!"
+
+    #here we are retrieving all the data from the student's table
+    st_data=student.objects.all()
+
+    #here we are creating a dictionary to hold the retrived data and also the message
+    context={
+        'stlst':st_data,
+        'msg':msg
+        }
+    return render(request,"photo/index.html",context)
+
+
+#**************************************************************************
+#In the templates
+#**************************************************************************
+<form action="/photo/add_new_st/"  method="POST">
+    {% csrf_token %}
+    <input type="text" name="stname"><br>
+    <input type="text" name="stcoll"><br>
+    <input type="submit"  name="Add New Student">
+</form>
+<hr>
+{{msg}}
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table>
+    <tr>
+        <td class="hd">Name</td>
+        <td class="hd">Collage</td>
+    </tr>
+    {% for  st in stlst  %}
+    <tr>
+        <td>{{st.stname}}</td>
+        <td>{{st.stcoll}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+#**************************************************************************
+#In the urls.py
+#**************************************************************************
+
+from django.urls import path
+from .views import add_new_st
+app_name="student"
+urlpatterns=[
+    path('',index),
+    path('add_new_st/', add_new_st),
+    ]
+
+
