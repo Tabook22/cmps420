@@ -1,0 +1,17 @@
+#Weather, here we going to let the user select any city he which to see the weath. and to do that we are going to 
+# nstalle extara packages such as:
+# 1- requests (pip install requests), helps us to send HTTP request using python. In other words it helps us to intract with services outside of our own applicaiton
+# 2- pprint (pip install pprint), this type of packages makes the out put more beautifull and easy to read
+#------------------------
+import requests
+from pprint import pprint
+
+#here we allow the user to select what city he need to get weather from
+city=input('enter your city : ')
+
+#here the appid=YOUR APPI KEY, is my appi key at https://openweathermap.org/, you have to signup and then you can get your free appi key
+url='http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=YOUR-APPI KEY'.format(city)
+res=requests.get(url) # here we make a get request to get the required data
+data=res.json() #this means we need to get the requestd data in the format of json, notice we can also get the data in the text format like this data=res.text
+
+pprint(data)
