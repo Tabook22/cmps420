@@ -1,8 +1,15 @@
+#**************************************************************************
+#In the views.py
+#**************************************************************************
+
+from django.shortcuts import render,redirect,get_object_or_404
+#here we must import the student model for the the models.py fiel
+from .models import student
 
 
-#delete student
 def delete(request, id):
-    #return HttpResponse("<script>alert("+ format(id) +")</script>")
+    # id is the student id, we we get it from the form index.html
+    # here we must check to see if the sudent with the id is there in the database or not
     obj=get_object_or_404(student,id=id)
     if obj:
         obj.delete()
@@ -16,3 +23,76 @@ def delete(request, id):
         'msg':msg
         }
     return render(request,"photo/index.html",context)
+
+
+
+
+#**************************************************************************
+#In the urls.py
+#**************************************************************************
+
+from django.urls import path
+from .views import index, delete
+app_name="photo"
+urlpatterns=[
+    path('',index),
+    path('delete/<int:id>/',delete, name="delete"),
+    ]
+    
+    
+    
+ 
+#**************************************************************************
+#In the models.py
+#**************************************************************************
+
+from django.db import models
+
+#here we created the student model, which we are going to use it to create the table student 
+#in the database when we do the migration
+class student(models.Model):
+    stname=models.CharField(verbose_name="Studnet Name", max_length=100,null=True, blank=True)
+    stcoll=models.CharField(verbose_name="College", max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.stname
+
+
+
+#**************************************************************************
+#In the index.html
+#**************************************************************************
+
+<form action="/photo/add_new_st/"  method="POST">
+    {% csrf_token %}
+    Student Name:<input type="text" name="stname"><br>
+    Student Collage:<input type="text" name="stcoll"><br>
+    <input type="submit"  name="Add New Student">
+</form>
+<hr>
+{{msg}}
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table>
+    <tr>
+        <td class="hd">Name</td>
+        <td class="hd">Collage</td>
+        <td></td>
+    </tr>
+    {% for  st in stlst  %}
+    <tr>
+        <td>{{st.stname}}</td>
+        <td>{{st.stcoll}}</td>
+        <td><a onclick="return confirm('Are you sure you want to delete this student?');" href="{% url 'photo:delete' id=st.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
