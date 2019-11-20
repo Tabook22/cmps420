@@ -50,13 +50,14 @@ def add_new_st(request):
     return render(request,"photo/index.html",context)
 
 
+
 #**************************************************************************
-#In the templates
+#In the templates index.html
 #**************************************************************************
 <form action="/photo/add_new_st/"  method="POST">
     {% csrf_token %}
-    <input type="text" name="stname"><br>
-    <input type="text" name="stcoll"><br>
+    Student Name:<input type="text" name="stname"><br>
+    Student Collage:<input type="text" name="stcoll"><br>
     <input type="submit"  name="Add New Student">
 </form>
 <hr>
@@ -74,14 +75,17 @@ def add_new_st(request):
     <tr>
         <td class="hd">Name</td>
         <td class="hd">Collage</td>
+        <td></td>
     </tr>
     {% for  st in stlst  %}
     <tr>
         <td>{{st.stname}}</td>
         <td>{{st.stcoll}}</td>
+        <td><a onclick="return confirm('Are you sure you want to delete this student?');" href="{% url 'photo:delete' id=st.id %}">Delete</a></td>
     </tr>
     {% endfor %}
 </table>
+
 
 
 #**************************************************************************
