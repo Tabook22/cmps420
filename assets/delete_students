@@ -1,0 +1,18 @@
+
+
+#delete student
+def delete(request, id):
+    #return HttpResponse("<script>alert("+ format(id) +")</script>")
+    obj=get_object_or_404(student,id=id)
+    if obj:
+        obj.delete()
+        msg="Student Deleted!"
+    else:
+        msg="Student Not Deleted"
+
+    st_data=student.objects.all()
+    context={
+        'stlst':st_data,
+        'msg':msg
+        }
+    return render(request,"photo/index.html",context)
