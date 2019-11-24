@@ -1,13 +1,23 @@
-
-
+#**************************************************************************
+#In the views.py
+#**************************************************************************
 #search
 
 def search(request):
-    lst=""
+    #checking to see if the request method is post or get
     if request.method =="POST":
+        #search the database for the student with the name stored inside the argument "stname" which comes with post
         stn=request.POST.get('stname')
         #getstn= student.objects.all()[:1].get() #getting the first record
         getstn=student.objects.get(stname=stn)
 
     #return HttpResponse("<h1>" + getstn.stname + "</h1>")
     return render(request,"photo/search.html",{'result':getstn})
+
+
+#**************************************************************************
+#In the template search.html
+#**************************************************************************
+<h1>The Result is:</h1>
+Student Name:{{result.stname}} <br>
+Student collage:{{result.stcoll}}
