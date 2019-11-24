@@ -1,0 +1,13 @@
+
+
+#search
+
+def search(request):
+    lst=""
+    if request.method =="POST":
+        stn=request.POST.get('stname')
+        #getstn= student.objects.all()[:1].get() #getting the first record
+        getstn=student.objects.get(stname=stn)
+
+    #return HttpResponse("<h1>" + getstn.stname + "</h1>")
+    return render(request,"photo/search.html",{'result':getstn})
