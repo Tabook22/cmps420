@@ -15,6 +15,50 @@ def search(request):
     return render(request,"photo/search.html",{'result':getstn})
 
 
+
+#**************************************************************************
+#In the template index.html
+#**************************************************************************
+<!-- this is the form which we are going to use it to search for the student -->
+<form action="/photo/search/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="stname"> <br>
+    <input type="submit" name="Find">
+</form>
+<hr>
+<form action="/photo/add_new_st/"  method="POST">
+    {% csrf_token %}
+    Student Name:<input type="text" name="stname"><br>
+    Student Collage:<input type="text" name="stcoll"><br>
+    <input type="submit"  name="Add New Student">
+</form>
+<hr>
+{{msg}}
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table>
+    <tr>
+        <td class="hd">Name</td>
+        <td class="hd">Collage</td>
+        <td></td>
+    </tr>
+    {% for  st in stlst  %}
+    <tr>
+        <td>{{st.stname}}</td>
+        <td>{{st.stcoll}}</td>
+        <td><a onclick="return confirm('Are you sure you want to delete this student?');" href="{% url 'photo:delete' id=st.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
 #**************************************************************************
 #In the template search.html
 #**************************************************************************
