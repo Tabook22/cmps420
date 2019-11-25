@@ -1,0 +1,32 @@
+
+
+#edit student here it will open the edit_st.html to display the data which will be modified
+def editst(request, id):
+    getst=student.objects.get(id=id)
+    #getst.stname="Mohammed"
+    #getst.stcoll="Eng."
+    #getst.save()
+    return render(request,"photo/edit_st.html",{'result':getst})
+    #return HttpResponse("<h1>" + getst.stname + "</h1>")
+
+
+#this will send the modified data to the be saved in the databae
+def edit_st(request):
+    msg=""
+    if request.method=="POST":
+        st=request.POST.get('id') #getting the id of the student which will be saved. the id will be sent inside a hidden filed from the form
+        getstudent=student.objects.get(id=st)
+        getstudent.stname=request.POST.get('stname')
+        getstudent.stcoll=request.POST.get('stcoll')
+        getstudent.save()
+
+        msg="Student data updates successfully"
+    else:
+        msg="Student data not update please see the administrator"
+
+    st_data=student.objects.all()
+    context={
+        'stlst':st_data,
+        'msg':msg
+        }
+    return render(request,"photo/index.html",context)
