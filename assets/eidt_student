@@ -80,15 +80,25 @@ def edit_st(request):
 #**************************************************************************
 #In the template edit_s.html
 #**************************************************************************
+{% extends "photo/base.html" %}
 
+{% block student%}
 <h2>Please change the data as required !</h2>
 <hr>
 <form action="/photo/edit_st/"  method="POST">
     {% csrf_token %}
     <input type="hidden"  name="id" value="{{result.id}}">
-    Student Name:<input type="text" name="stname" value="{{result.stname}}"><br>
-    Student Collage:<input type="text" name="stcoll" value={{result.stcoll}}><br>
-    <input type="submit"  name="Save changes">
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Student Name:</label>
+    <input type="text" class="form-control" name="stname" id="stname" aria-describedby="emailHelp" value="{{result.stname}}">
+
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Collage</label>
+    <input type="text" class="form-control" id="stcoll" name="stcoll" value="{{result.stcoll}}">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
-
-
+{% endblock %}
