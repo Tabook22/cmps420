@@ -1,0 +1,57 @@
+
+{% extends "photo/base.html" %}
+<!-- you have to add "{% load static %}" to be able to display your images from the static folder -->
+{% load static %}
+{% block student%}
+<form action="/photo/search/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="stname"> <br>
+    <input type="submit" name="Find">
+</form>
+<hr>
+<form action="/photo/add_new_st/"  method="POST">
+    {% csrf_token %}
+    Student Name:<input type="text" name="stname"><br>
+    Student Collage:<input type="text" name="stcoll"><br>
+    <input type="submit"  name="Add New Student">
+</form>
+<hr>
+{{msg}}
+<!-- Load image manually -->
+<img src="{% static "iphnoe1.jpg" %}" style="max-width:200px;">
+<table class="table">
+    <tr>
+        <td><img src="{% static "logo.png" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "places/balance.png" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "nature/hero.png" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "logo.png" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "logo.png" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "logo.png" %}" style="max-width:50px;"></td>
+    </tr>
+</table>
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table>
+    <tr>
+        <td class="hd">Name</td>
+        <td class="hd">Collage</td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% for  st in stlst  %}
+    <tr>
+        <td>{{st.stname}}</td>
+        <td>{{st.stcoll}}</td>
+        <td><a href="{% url 'photo:editst' id=st.id %}">Edit</a></td>
+        <td><a onclick="return confirm('Are you sure you want to delete this student?');" href="{% url 'photo:delete' id=st.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
