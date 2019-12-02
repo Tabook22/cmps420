@@ -1,3 +1,6 @@
+#**************************************************************************
+#In the index.html
+#**************************************************************************
 
 {% extends "photo/base.html" %}
 <!-- you have to add "{% load static %}" to be able to display your images from the static folder -->
