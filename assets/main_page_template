@@ -8,11 +8,14 @@ def index(request):
     #return redirect('/photo/cjsonfile/')
     #return render(request, "photo/index.html")
 
+
+
+
+
 #**************************************************************************
 # _header.html
 # this is the header part which we are going to include it in the index.htm
 #**************************************************************************
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -82,11 +85,14 @@ def index(request):
 </header>
 
 
+
+
+
+
+
 #**************************************************************************
 # index.html
 #**************************************************************************
-
-
 {% include "_header.html" %}
 <main role="main">
   <section class="jumbotron text-center">
@@ -129,6 +135,10 @@ def index(request):
 
 </main>
 {% include "_footer.html" %}
+
+
+
+
 
 
 #**************************************************************************
